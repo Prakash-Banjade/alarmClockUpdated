@@ -322,7 +322,7 @@
           else if (element.DAYS.indexOf(todayDay) != -1) {
               element.DAYS.forEach(function(day) {
                   if (element.HOUR == checkHour && element.MINUTE == date.getMinutes() && currTime.includes(element.PERIOD) && todayDay == day && date.getSeconds() == 0 && element.TOGGLE == true) {
-                      console.log('Alarm rang' + alarmTime + alarmPeriod + ' ' + 'Setting the weekday' + `${day}`);
+                      //   console.log('Alarm rang' + alarmTime + alarmPeriod + ' ' + 'Setting the weekday' + `${day}`);
                       alarmTone.addEventListener('ended', function() {
                           this.currentTime = 0;
                           this.play();
