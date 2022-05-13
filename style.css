@@ -1,0 +1,502 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+ :root {
+    --primary-font: 'Source Code Pro', monospace;
+    --secondary-font: 'Poppins', sans-serif;
+    --primary-dark-color: #efefef;
+    --primary-light-color: #121212;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    /* background-color: #222; */
+}
+
+.clock {
+    width: 100vw;
+    padding: 2rem;
+    border: 1px solid transparent;
+    border-bottom-color: black;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+#clock {
+    font-size: 2rem;
+    color: yellow;
+    padding: 10px 15px;
+    background-color: black;
+    font-family: var(--primary-font);
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px 1px rgb(0 0 0 / .4), -2px -2px 5px 1px rgb(0 0 0 / .1);
+}
+
+#dayAndDate {
+    font-size: 1.5rem;
+    color: purple;
+    font-family: var(--secondary-font);
+}
+
+.alarms {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 20px 20px;
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+}
+
+.alarms .addAlarm {
+    font-family: var(--primary-font);
+    background-color: #222;
+    color: dodgerblue;
+    z-index: 2;
+    font-size: 2rem;
+    padding: 1rem 1.3rem;
+    box-shadow: 0 0 30px 10px rgb(0 0 0 / .5);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.alarms .addAlarm i {
+    animation: toLargeAddBtn .4s;
+}
+
+@keyframes toLargeAddBtn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+
+/* When the alarm is set */
+
+.alarms .addAlarm.alarmSet {
+    background-color: lightgreen;
+    border: 2px solid green;
+    color: green;
+    box-shadow: 0 0 15px 2px rgb(144 238 144);
+    pointer-events: none;
+}
+
+.alarms .addAlarm.alarmSet i {
+    animation: toLarge .4s, toSmall .4s 2.6s;
+}
+
+@keyframes toLarge {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.8);
+    }
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes toSmall {
+    from {
+        transform: scale(1.2);
+    }
+    to {
+        transform: scale(0);
+    }
+}
+
+#modalContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0 0 0 / .4);
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+#addAlarmModal {
+    background-color: whitesmoke;
+    width: 600px;
+    padding: 30px 30px 10px 30px;
+    border: 1px solid black;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    animation: fadeIn .1s;
+    /* display: none; */
+}
+
+#addAlarmModal p {
+    width: fit-content;
+    font-family: var(--primary-font);
+    font-size: 2rem;
+    /* font-style: normal; */
+    font-weight: bold;
+    color: purple;
+    margin-bottom: 2rem;
+}
+
+#addAlarmModal .alarmInput {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#addAlarmModal .alarmInput>* {
+    flex: 1 1 25%;
+}
+
+#addAlarmModal .alarmInput .timeContainer input {
+    width: 100%;
+    height: 40px;
+    font-size: 1rem;
+    font-family: var(--primary-font);
+    color: #363940;
+    padding: 5px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+}
+
+#addAlarmModal .alarmInput .dayContainer {
+    flex: 1 1 100%;
+    flex-flow: row wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#addAlarmModal .alarmInput .dayContainer label {
+    font-family: var(--primary-font);
+    font-size: 1rem;
+}
+
+#addAlarmModal .alarmInput .dayContainer input {
+    display: inline;
+    margin: 2.8px 25px 0px 2px;
+}
+
+#addAlarmModal .alarmInput .dayContainer input:last-child {
+    margin: 3px 0px 0px 2px;
+}
+
+#addAlarmModal .alarmInput #periods {
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    font-size: 1rem;
+    font-family: var(--primary-font);
+    padding: 5px;
+    /* font-weight: bold; */
+    color: #363940;
+}
+
+#addAlarmModal .alarmInput .timeContainer label {
+    font-size: 1rem;
+    font-family: var(--primary-font);
+    display: block;
+    /* margin-bottom: 5rem; */
+}
+
+.isAlarmDone {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50%;
+    margin-top: 2rem;
+}
+
+.isAlarmDone i {
+    font-size: 2.5rem;
+    cursor: pointer;
+    /* font-family: var(--primary-font); */
+}
+
+#alarmsContainerParent {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.alarmContainer {
+    width: 100%;
+    margin-bottom: 8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+    font-family: var(--primary-font);
+}
+
+.alarmContainer .alarm {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 8px;
+    background-color: #7c7c7c;
+    border-radius: 5px;
+    color: dodgerblue;
+    position: relative;
+}
+
+.alarmContainer .alarm h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    color: white;
+}
+
+.alarmContainer .alarm h1 strong {
+    font-size: 1rem;
+    padding-left: 1rem;
+}
+
+.alarmContainer .alarm p {
+    width: 80%;
+}
+
+.alarmContainer .alarm .alarmOff {
+    color: #aaa;
+}
+
+.alarmContainer .alarm i {
+    /* border: 2px solid black; */
+    color: rgb(0 0 0 / .6);
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    height: 1.5rem;
+    width: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: .8;
+    cursor: pointer;
+}
+
+.toggleAlarmParent {
+    position: absolute;
+    top: 50%;
+    left: calc(100% - 3rem);
+    transform: translate(-50%, -50%);
+}
+
+.toggleAlarmParent .toggleAlarm {
+    width: 3rem;
+    height: 1.5rem;
+    background-color: #ddd;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggleAlarmParent .toggleAlarm::before {
+    content: '';
+    height: .9rem;
+    width: .9rem;
+    border-radius: 50%;
+    background-color: #363940;
+    position: absolute;
+    top: 50%;
+    left: 22%;
+    transform: translate(-50%, -50%);
+}
+
+.toggleAlarmParent .toggleAlarm.alarmOn {
+    background-color: dodgerblue;
+    border: 2px solid dodgerblue;
+}
+
+.toggleAlarmParent .toggleAlarm.alarmOn::before {
+    content: '';
+    height: .9rem;
+    width: .9rem;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+}
+
+.alarmRingingPalet {
+    height: 50ch;
+    width: 80ch;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #363940;
+    box-shadow: 0 0 99999px 99999px rgb(0 0 0 / .5);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5ch;
+    flex-direction: column;
+    z-index: 3;
+    display: none;
+}
+
+.alarmRingingPalet h1 {
+    font-size: 4rem;
+    font-family: var(--primary-font);
+    color: #efefef;
+}
+
+.alarmRingingPalet p {
+    font-size: 2rem;
+    font-family: var(--primary-font);
+    color: #efefef;
+}
+
+.alarmRingingPalet button {
+    padding: 10px 18px;
+    font-size: 1rem;
+    font-family: var(--secondary-font);
+    background-color: aqua;
+    color: #332233;
+    border: 2px solid #0ff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .15s ease-in-out;
+}
+
+.alarmRingingPalet button:hover {
+    background-color: #efefef;
+    color: #332233;
+    border: 2px solid #0ff;
+}
+
+@media screen and (max-width: 700px) {
+    #addAlarmModal {
+        width: 70vw;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    html {
+        font-size: 12px;
+    }
+    .clock {
+        flex-flow: column wrap;
+        gap: 1rem;
+        padding: 2rem 0 1rem 0;
+        border: none;
+        box-shadow: 0 2px 30px 1px rgb(0 0 0 / 50%);
+    }
+    .alarmContainer .alarm .alarmOff {
+        color: #888;
+    }
+    .alarmContainer .alarm h1 {
+        color: #121212;
+    }
+    .alarmContainer .alarm h1 strong {
+        padding-left: .5rem;
+        color: #333;
+    }
+    .alarmContainer .alarm h1.alarmOff strong {
+        color: #888;
+    }
+    .alarmContainer {
+        gap: 0;
+    }
+    .alarmContainer .alarm {
+        width: 100%;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-bottom-color: black;
+        border-radius: 0;
+        padding: 20px 8px;
+    }
+    .alarmContainer .alarm:nth-child(1) {
+        border-top-color: black;
+    }
+    .alarmContainer .alarm i {
+        color: #121212;
+    }
+    #addAlarmModal {
+        width: 100vw;
+        padding: 30px 10px 10px 10px;
+        /* height: 110vw; */
+    }
+    #addAlarmModal .alarmInput .dayContainer input {
+        margin: 2.8px 20px 0px 2px;
+    }
+    .alarms .addAlarm {
+        padding: 2rem 2.3rem;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+     :root {
+        color-scheme: dark;
+    }
+    #addAlarmModal .alarmInput .timeContainer label,
+    #addAlarmModal .alarmInput .dayContainer label {
+        color: #332233;
+    }
+    #addAlarmModal {
+        background-color: #dcdcdc;
+    }
+    #addAlarmModal .alarmInput .timeContainer input,
+    #addAlarmModal .alarmInput #periods {
+        color: #ededed;
+    }
+    .clock {
+        background-color: var(--primary-light-color);
+    }
+    .alarmContainer .alarm i {
+        color: var(--primary-dark-color);
+    }
+    .alarmContainer .alarm h1 {
+        color: var(--primary-dark-color);
+    }
+    .alarmContainer .alarm h1 strong {
+        color: #dedede;
+    }
+    .alarmContainer .alarm h1.alarmOff strong {
+        color: #666;
+    }
+}

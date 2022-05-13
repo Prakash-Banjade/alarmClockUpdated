@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set your Alarm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Source+Code+Pro:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script defer src="https://kit.fontawesome.com/e5dc0c1e60.js" crossorigin="anonymous"></script>
+    <script defer src="script.js"></script>
+
+</head>
+
+<body>
+    <div class="clock">
+        <span id="clock">
+
+        </span>
+        <span id="dayAndDate">
+
+        </span>
+    </div>
+
+    <div class="alarms">
+        <span id="addAlarm" class="addAlarm" title="Add alarm">
+            <i class="fas fa-plus"></i>
+        </span>
+    </div>
+
+    <section id="modalContainer">
+
+        <section id="addAlarmModal">
+            <p>Add an alarm</p>
+            <div class="alarmInput">
+                <div class="timeContainer">
+
+                    <label for="hours">Hour</label>
+                    <input type="number" id="hours">
+                </div>
+                <div class="timeContainer">
+                    <label for="minutes">Minutes</label>
+                    <input type="number" id="minutes">
+                </div>
+
+                <div class="timeContainer">
+                    <label for="periods">&nbsp;</label>
+                    <select name="Periods" id="periods" title="Periods">
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                     </select>
+                </div>
+                <div class="dayContainer ">
+                    <label for="sunday">S</label>
+                    <input class="day" type="checkbox" name="Sunday" id="Sunday">
+                    <label for="monday">M</label>
+                    <input class="day" type="checkbox" name="Monday" id="Monday">
+                    <label for="tuesday">T</label>
+                    <input class="day" type="checkbox" name="tuesday" id="Tuesday">
+                    <label for="wednesday">W</label>
+                    <input class="day" type="checkbox" name="wednesday" id="Wednesday">
+                    <label for="thursday">TH</label>
+                    <input class="day" type="checkbox" name="thursday" id="Thursday">
+                    <label for="friday">F</label>
+                    <input class="day" type="checkbox" name="friday" id="Friday">
+                    <label for="saturday">Sa</label>
+                    <input class="day" type="checkbox" name="saturday" id="Saturday">
+                </div>
+                <div class="timeContainer">
+
+                    <label for="alarmName">Title</label>
+                    <input type="text" id="alarmName" placeholder="Alarm" maxlength="20">
+
+                </div>
+
+
+            </div>
+            <div class="isAlarmDone">
+                <i class="fas fa-times" id="cancel" style="color: red"></i>
+                <i class="fas fa-check" id="done" style="color: green;"></i>
+            </div>
+        </section>
+    </section>
+
+    <section id="alarmsContainerParent">
+        <div class="alarmContainer" id="alarmContainer">
+            <!-- <div id="alarm" class="alarm">
+                <h1>TIME</h1>
+                <p>ALARM DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday']</p>
+                <strong>ALARM TITLE</strong>
+
+                <div class="toggleAlarmParent">
+                    <div class="toggleAlarm " id="toggleAlarm" title="Turn off alarm">
+
+
+                    </div>
+                </div>
+
+                <i class="fas fa-times" title="Delete Alarm"></i>
+            </div> -->
+
+
+            <!--  <div class="alarm">
+                    <h1>${element.HOUR}:${element.MINUTE} ${element.PERIOD}</h1>
+                    <p>${alarmDays}</p>
+                    <strong>${element.TITLE}</strong>
+                    <div class="toggleAlarmParent">
+                        <div class="toggleAlarm" id="toggleAlarm" title="Turn off alarm"></div>
+                    </div>
+                    <i class="fas fa-times" id="${index}" title="Delete Alarm" onclick="delAlarm(this.id)"></i>
+                </div> -->
+
+
+        </div>
+    </section>
+
+    <section id="alarmRingingPalet" class="alarmRingingPalet">
+        <h1></h1>
+        <p> </p>
+        <button id="dismissAlarm">Dismiss</button>
+    </section>
+
+
+
+
+</body>
+
+</html>
